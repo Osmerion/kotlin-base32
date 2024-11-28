@@ -2,7 +2,7 @@
 binary-compatibility-validator = "0.17.0"
 dokka = "1.9.20"
 dokkatoo = "2.3.1"
-kotlin = "2.0.20"
+kotlin = "2.1.0"
 
 
 [plugins]
