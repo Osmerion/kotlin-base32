@@ -363,7 +363,7 @@ public open class Base32 private constructor(
                         shiftTo == 15 && (offset == endIndex || source[offset++] != '='.code.toByte() || offset == endIndex || source[offset++] != '='.code.toByte() || offset == endIndex || source[offset++] != '='.code.toByte()) ||
                         shiftTo == 10 && (offset == endIndex || source[offset++] != '='.code.toByte() || offset == endIndex || source[offset++] != '='.code.toByte())
                     ) {
-                        throw IllegalArgumentException("Input byte array has wrong 5-byte ending unit")
+                        throw IllegalArgumentException("The last unit of input does not have enough bits")
                     }
 
                     hasPadding = true
