@@ -207,10 +207,6 @@ tasks {
         includeEmptyDirs = false
     }
 
-    dokkaGeneratePublicationHtml {
-        outputDirectory = layout.projectDirectory.dir("docs/site/api")
-    }
-
     // See https://github.com/GW2ToolBelt/GW2ChatLinks/issues/18
     generatePomFileForKotlinMultiplatformPublication {
         dependsOn(project.tasks.named("generatePomFileForJvmPublication"))
