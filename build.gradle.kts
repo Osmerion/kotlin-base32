@@ -173,8 +173,6 @@ dokka {
 
     dokkaPublications.configureEach {
         moduleName = "kotlin-base32"
-
-        // TODO Remaining warnings are silly atm. Reevaluate this flag in the future.
         failOnWarning = true
     }
 }
