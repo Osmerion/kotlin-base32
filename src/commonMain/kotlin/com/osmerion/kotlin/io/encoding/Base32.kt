@@ -419,6 +419,10 @@ public open class Base32 private constructor(
         val symbols = endIndex - startIndex
         if (symbols == 0) return 0
 
+        if (symbols == 1) {
+            throw IllegalArgumentException("Input should have at least 2 symbols for Base32 decoding, startIndex: $startIndex, endIndex: $endIndex")
+        }
+
         var paddings = 0
         for (i in 1..7) {
             if (source[endIndex - i] == padSymbol) {
