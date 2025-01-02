@@ -588,39 +588,6 @@ public open class Base32 private constructor(
             srcOffset = sl0
         }
 
-//        if (srcOffset < endIndex) { // 1-4 leftover bytes
-//            val b0: Int = source[srcOffset++].toInt() and 0xFF
-//            destination[dstOffset++] = alphabet[b0 shr 3]
-//
-//            if (srcOffset == endIndex) {
-//                destination[dstOffset++] = alphabet[(b0 shl 2) and 31]
-//                repeat(6) { destination[dstOffset++] = padSymbol }
-//            } else {
-//                val b1: Int = source[srcOffset++].toInt() and 0xFF
-//                destination[dstOffset++] = alphabet[(b0 shl 2) and 31 or (b1 shr 6)]
-//                destination[dstOffset++] = alphabet[(b1 shr 1) and 31]
-//
-//                if (srcOffset == endIndex) {
-//                    destination[dstOffset++] = alphabet[(b1 shl 4) and 31]
-//                    repeat(4) { destination[dstOffset++] = padSymbol }
-//                } else {
-//                    val b2: Int = source[srcOffset++].toInt() and 0xFF
-//                    destination[dstOffset++] = alphabet[(b1 shl 4) and 31 or (b2 shr 4)]
-//
-//                    if (srcOffset == endIndex) {
-//                        destination[dstOffset++] = alphabet[(b2 shl 1) and 31]
-//                        repeat(4) { destination[dstOffset++] = padSymbol }
-//                    } else {
-//                        val b3: Int = source[srcOffset].toInt() and 0xFF
-//                        destination[dstOffset++] = alphabet[(b2 shl 1) and 31 or (b3 shr 7)]
-//                        destination[dstOffset++] = alphabet[(b3 shr 2) and 31]
-//                        destination[dstOffset++] = alphabet[(b3 shl 3) and 31]
-//                        destination[dstOffset++] = padSymbol
-//                    }
-//                }
-//            }
-//        }
-
         if (srcOffset < endIndex) { // 1-4 leftover bytes
             // Load the first byte
             val b0: Int = source[srcOffset++].toInt() and 0xFF
