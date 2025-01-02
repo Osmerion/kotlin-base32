@@ -44,7 +44,6 @@ kotlin {
     explicitApi()
     applyDefaultHierarchyTemplate()
 
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
     compilerOptions {
         apiVersion = KotlinVersion.KOTLIN_2_0
         languageVersion = KotlinVersion.KOTLIN_2_0
@@ -58,7 +57,6 @@ kotlin {
     jvm {
         withJava()
 
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget = JvmTarget.JVM_11
             freeCompilerArgs.add("-Xjdk-release=11")
