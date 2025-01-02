@@ -1,24 +1,18 @@
 [versions]
 binary-compatibility-validator = "0.17.0"
-dokka = "1.9.20"
-dokkatoo = "2.3.1"
+dokka = "2.0.0"
 kotlin = "2.1.0"
 
 
 [plugins]
-# dev.adamko.dokkatoo - Dokkatoo
-# https://github.com/adamko-dev/dokkatoo
-dokkatoo-html = { id = "dev.adamko.dokkatoo-html", version.ref = "dokkatoo" }
-dokkatoo-javadoc = { id = "dev.adamko.dokkatoo-javadoc", version.ref = "dokkatoo" }
+# org.jetbrains.dokka - Dokka Gradle Plugin
+# https://github.com/Kotlin/dokka
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+dokka-javadoc = { id = "org.jetbrains.dokka-javadoc", version.ref = "dokka" }
 
 # org.jetbrains.kotlinx.binary-compatibility-validator - binary-compatibility-validator
 # https://github.com/Kotlin/binary-compatibility-validator
 binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary-compatibility-validator" }
 
-# org.jetbrains.dokka - dokka
-# https://github.com/Kotlin/dokka
-#dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
-
 # org.jetbrains.kotlin - Kotlin Gradle plugin
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

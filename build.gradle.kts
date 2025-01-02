@@ -26,7 +26,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     alias(buildDeps.plugins.binary.compatibility.validator)
-    alias(buildDeps.plugins.dokkatoo.html)
+    alias(buildDeps.plugins.dokka)
+//    alias(buildDeps.plugins.dokka.javadoc)
     alias(buildDeps.plugins.kotlin.multiplatform)
     id("com.osmerion.maven-publish-conventions")
 }
@@ -143,12 +144,12 @@ kotlin {
     }
 }
 
-dokkatoo {
+dokka {
     dokkaGeneratorIsolation = ProcessIsolation {
         maxHeapSize = "4G"
     }
 
-    dokkatooSourceSets.configureEach {
+    dokkaSourceSets.configureEach {
         reportUndocumented = true
         skipEmptyPackages = true
         jdkVersion = 11
@@ -164,15 +165,17 @@ dokkatoo {
         }
     }
 
-    dokkatooPublications.configureEach {
+    dokkaSourceSets {
+        commonMain {
+            samples.from(files("src/commonTest/kotlin"))
+        }
+    }
+
+    dokkaPublications.configureEach {
         moduleName = "kotlin-base32"
 
         // TODO Remaining warnings are silly atm. Reevaluate this flag in the future.
-//        failOnWarning = true
-    }
-
-    versions {
-        jetbrainsDokka = buildDeps.versions.dokka
+        failOnWarning = true
     }
 }
 
@@ -204,7 +207,7 @@ tasks {
         includeEmptyDirs = false
     }
 
-    dokkatooGeneratePublicationHtml {
+    dokkaGeneratePublicationHtml {
         outputDirectory = layout.projectDirectory.dir("docs/site/api")
     }
 
