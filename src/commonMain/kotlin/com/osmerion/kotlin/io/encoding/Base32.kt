@@ -410,8 +410,12 @@ public open class Base32 private constructor(
         else if (hasPadding && paddingOption == PaddingOption.ABSENT)
             throw IllegalArgumentException("The padding option is set to ABSENT, but the input is padded")
 
-        require(offset >= endIndex) { "Input byte array has incorrect ending byte at $offset" }
-        return dstOffset - destinationOffset
+        if (sourceIndex < endIndex) {
+            val symbol = source[sourceIndex].toInt() and 0xFF
+            throw IllegalArgumentException("Symbol '${symbol.toChar()}'(${symbol.toString(radix = 8)}) at index ${sourceIndex - 1} is prohibited after the pad character")
+        }
+
+        return destinationIndex - destinationOffset
     }
 
     // `internal` for testing
