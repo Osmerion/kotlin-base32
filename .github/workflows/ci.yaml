@@ -70,22 +70,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Dokka Generate
-        run: ./gradlew dokkatooGenerate --info -S --show-version
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-
-      - name: Install dependencies
-        run: pip3 install --no-deps -r .github/workflows/mkdocs-requirements.txt
-
-      - name: MkDocs Build
-        run: mkdocs build
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./build/site
-          retention-days: 3
+        run: ./gradlew dokkaGenerate --info -S --show-version
 
 
   check:
@@ -135,7 +120,7 @@ jobs:
   cleanup:
     name: Cleanup
     if: ${{ always() }}
-    needs: [build-docs, check]
+    needs: [check]
     runs-on: ubuntu-latest
     permissions:
       actions: write
