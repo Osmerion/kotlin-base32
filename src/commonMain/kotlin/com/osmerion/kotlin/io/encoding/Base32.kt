@@ -331,37 +331,38 @@ public open class Base32 private constructor(
     }
 
     private fun decodeImpl(source: ByteArray, destination: ByteArray, destinationOffset: Int, startIndex: Int, endIndex: Int): Int {
-        val alphabet = if (isHexExtended) base32HexDecodeMap else base32DecodeMap
-        var offset = startIndex
+        val decodeMap = if (isHexExtended) base32HexDecodeMap else base32DecodeMap
 
-        var dstOffset = destinationOffset
+        var sourceIndex = startIndex
+        var destinationIndex = destinationOffset
+
         var bits: Long = 0
         var shiftTo = 35
 
         val requiresPadding = ((startIndex - endIndex) % symbolsPerGroup) != 0
         var hasPadding = false
 
-        while (offset < endIndex) {
-            if (shiftTo == 35 && offset < endIndex - 8) {
-                val dstLength: Int = this.decodeBlock(source, offset, endIndex, destination, dstOffset)
+        while (sourceIndex < endIndex) {
+            if (shiftTo == 35 && sourceIndex < endIndex - 8) {
+                val dstLength: Int = this.decodeBlock(source, sourceIndex, endIndex, destination, destinationIndex)
                 val charsDecoded = (dstLength / 5) * 8
 
-                offset += charsDecoded
-                dstOffset += dstLength
+                sourceIndex += charsDecoded
+                destinationIndex += dstLength
             }
 
-            if (offset >= endIndex) {
+            if (sourceIndex >= endIndex) {
                 break
             }
 
-            var b: Int = source[offset++].toInt() and 0xFF
-            if ((alphabet[b].also { b = it }) < 0) {
+            var b: Int = source[sourceIndex++].toInt() and 0xFF
+            if ((decodeMap[b].also { b = it }) < 0) {
                 if (b == -2) { // padding byte '='
                     if (shiftTo == 35 || shiftTo == 30 || shiftTo == 5 ||
-                        shiftTo == 25 && (offset == endIndex || source[offset++] != '='.code.toByte() || offset == endIndex || source[offset++] != '='.code.toByte() || offset == endIndex || source[offset++] != '='.code.toByte() || offset == endIndex || source[offset++] != '='.code.toByte() || offset == endIndex || source[offset++] != '='.code.toByte()) ||
-                        shiftTo == 20 && (offset == endIndex || source[offset++] != '='.code.toByte() || offset == endIndex || source[offset++] != '='.code.toByte() || offset == endIndex || source[offset++] != '='.code.toByte()) ||
-                        shiftTo == 15 && (offset == endIndex || source[offset++] != '='.code.toByte() || offset == endIndex || source[offset++] != '='.code.toByte() || offset == endIndex || source[offset++] != '='.code.toByte()) ||
-                        shiftTo == 10 && (offset == endIndex || source[offset++] != '='.code.toByte() || offset == endIndex || source[offset++] != '='.code.toByte())
+                        shiftTo == 25 && (sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte() || sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte() || sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte() || sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte() || sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte()) ||
+                        shiftTo == 20 && (sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte() || sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte() || sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte()) ||
+                        shiftTo == 15 && (sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte() || sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte() || sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte()) ||
+                        shiftTo == 10 && (sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte() || sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte())
                     ) {
                         throw IllegalArgumentException("The last unit of input does not have enough bits")
                     }
@@ -369,38 +370,38 @@ public open class Base32 private constructor(
                     hasPadding = true
                     break
                 } else {
-                    throw IllegalArgumentException("Illegal base32 character " + source[offset - 1].toString(radix = 16))
+                    throw IllegalArgumentException("Illegal base32 character " + source[sourceIndex - 1].toString(radix = 16))
                 }
             }
 
             bits = bits or (b.toLong() shl shiftTo)
-            shiftTo -= 5
+            shiftTo -= bitsPerSymbol
 
             if (shiftTo < 0) {
-                destination[dstOffset++] = (bits shr 32).toByte()
-                destination[dstOffset++] = (bits shr 24).toByte()
-                destination[dstOffset++] = (bits shr 16).toByte()
-                destination[dstOffset++] = (bits shr 8).toByte()
-                destination[dstOffset++] = (bits).toByte()
+                destination[destinationIndex++] = (bits shr 32).toByte()
+                destination[destinationIndex++] = (bits shr 24).toByte()
+                destination[destinationIndex++] = (bits shr 16).toByte()
+                destination[destinationIndex++] = (bits shr 8).toByte()
+                destination[destinationIndex++] = (bits).toByte()
                 shiftTo = 35
                 bits = 0
             }
         }
 
         if (shiftTo == 0 || shiftTo == 5) {
-            destination[dstOffset++] = (bits shr 32).toByte()
-            destination[dstOffset++] = (bits shr 24).toByte()
-            destination[dstOffset++] = (bits shr 16).toByte()
-            destination[dstOffset++] = (bits shr 8).toByte()
+            destination[destinationIndex++] = (bits shr 32).toByte()
+            destination[destinationIndex++] = (bits shr 24).toByte()
+            destination[destinationIndex++] = (bits shr 16).toByte()
+            destination[destinationIndex++] = (bits shr 8).toByte()
         } else if (shiftTo == 10) {
-            destination[dstOffset++] = (bits shr 32).toByte()
-            destination[dstOffset++] = (bits shr 24).toByte()
-            destination[dstOffset++] = (bits shr 16).toByte()
+            destination[destinationIndex++] = (bits shr 32).toByte()
+            destination[destinationIndex++] = (bits shr 24).toByte()
+            destination[destinationIndex++] = (bits shr 16).toByte()
         } else if (shiftTo == 15) {
-            destination[dstOffset++] = (bits shr 32).toByte()
-            destination[dstOffset++] = (bits shr 24).toByte()
+            destination[destinationIndex++] = (bits shr 32).toByte()
+            destination[destinationIndex++] = (bits shr 24).toByte()
         } else if ((shiftTo == 20) or (shiftTo == 25)) {
-            destination[dstOffset++] = (bits shr 32).toByte()
+            destination[destinationIndex++] = (bits shr 32).toByte()
         } else if (shiftTo == 30) {
             throw IllegalArgumentException("Last unit does not have enough valid bits")
         }
