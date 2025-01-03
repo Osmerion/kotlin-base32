@@ -432,13 +432,7 @@ public open class Base32 private constructor(
             }
         }
 
-        when (paddings) {
-            3 -> paddings = 2
-            4 -> paddings = 3
-            6 -> paddings = 4
-        }
-
-        return ((symbols * bitsPerSymbol) / bitsPerByte) - paddings
+        return (((symbols - paddings) * bitsPerSymbol) / bitsPerByte)
     }
 
     /**
