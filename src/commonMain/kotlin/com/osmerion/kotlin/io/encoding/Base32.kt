@@ -555,6 +555,9 @@ public open class Base32 private constructor(
     }
 
     internal fun encodeIntoByteArrayImpl(source: ByteArray, destination: ByteArray, destinationOffset: Int, startIndex: Int, endIndex: Int): Int {
+        checkSourceBounds(source.size, startIndex, endIndex)
+        checkDestinationBounds(destination.size, destinationOffset, encodeSize(endIndex - startIndex))
+
         val alphabet = if (isHexExtended) base32HexEncodeMap else base32EncodeMap
         var srcOffset = startIndex
         var dstOffset = destinationOffset
