@@ -2,7 +2,6 @@
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-yellowgreen.svg?style=for-the-badge&label=License)](https://github.com/Osmerion/kotlin-base32/blob/master/LICENSE)
 [![Maven Central](https://img.shields.io/maven-central/v/com.osmerion.kotlin/kotlin-base32.svg?style=for-the-badge&label=Maven%20Central)](https://maven-badges.herokuapp.com/maven-central/com.osmerion.kotlin/kotlin-base32)
-[![Documentation](https://img.shields.io/maven-central/v/com.osmerion.kotlin/kotlin-base32.svg?style=for-the-badge&label=Documentation&color=blue)](https://osmerion.github.io/kotlin-base32/)
 ![Kotlin](https://img.shields.io/badge/Kotlin-2%2E1-green.svg?style=for-the-badge&color=a97bff&logo=Kotlin)
 ![Java](https://img.shields.io/badge/Java-11-green.svg?style=for-the-badge&color=b07219&logo=Java)
 
