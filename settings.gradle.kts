@@ -28,7 +28,8 @@ plugins {
 rootProject.name = "kotlin-base32"
 
 dependencyResolutionManagement {
-    repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
+    // Not currently compatible with the Kotlin Multiplatform plugin
+//    repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
 
     repositories {
         mavenCentral()
