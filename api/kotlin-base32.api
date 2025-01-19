@@ -1,0 +1,58 @@
+public class com/osmerion/kotlin/io/encoding/Base32 {
+	public static final field Default Lcom/osmerion/kotlin/io/encoding/Base32$Default;
+	public synthetic fun <init> (ZLcom/osmerion/kotlin/io/encoding/Base32$PaddingOption;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun decode (Ljava/lang/CharSequence;)[B
+	public final fun decode (Ljava/lang/CharSequence;I)[B
+	public final fun decode (Ljava/lang/CharSequence;II)[B
+	public final fun decode ([B)[B
+	public final fun decode ([BI)[B
+	public final fun decode ([BII)[B
+	public static synthetic fun decode$default (Lcom/osmerion/kotlin/io/encoding/Base32;Ljava/lang/CharSequence;IIILjava/lang/Object;)[B
+	public static synthetic fun decode$default (Lcom/osmerion/kotlin/io/encoding/Base32;[BIIILjava/lang/Object;)[B
+	public final fun decodeIntoByteArray (Ljava/lang/CharSequence;[B)I
+	public final fun decodeIntoByteArray (Ljava/lang/CharSequence;[BI)I
+	public final fun decodeIntoByteArray (Ljava/lang/CharSequence;[BII)I
+	public final fun decodeIntoByteArray (Ljava/lang/CharSequence;[BIII)I
+	public final fun decodeIntoByteArray ([B[B)I
+	public final fun decodeIntoByteArray ([B[BI)I
+	public final fun decodeIntoByteArray ([B[BII)I
+	public final fun decodeIntoByteArray ([B[BIII)I
+	public static synthetic fun decodeIntoByteArray$default (Lcom/osmerion/kotlin/io/encoding/Base32;Ljava/lang/CharSequence;[BIIIILjava/lang/Object;)I
+	public static synthetic fun decodeIntoByteArray$default (Lcom/osmerion/kotlin/io/encoding/Base32;[B[BIIIILjava/lang/Object;)I
+	public final fun encode ([B)Ljava/lang/String;
+	public final fun encode ([BI)Ljava/lang/String;
+	public final fun encode ([BII)Ljava/lang/String;
+	public static synthetic fun encode$default (Lcom/osmerion/kotlin/io/encoding/Base32;[BIIILjava/lang/Object;)Ljava/lang/String;
+	public final fun encodeIntoByteArray ([B[B)I
+	public final fun encodeIntoByteArray ([B[BI)I
+	public final fun encodeIntoByteArray ([B[BII)I
+	public final fun encodeIntoByteArray ([B[BIII)I
+	public static synthetic fun encodeIntoByteArray$default (Lcom/osmerion/kotlin/io/encoding/Base32;[B[BIIIILjava/lang/Object;)I
+	public final fun encodeToAppendable ([BLjava/lang/Appendable;)Ljava/lang/Appendable;
+	public final fun encodeToAppendable ([BLjava/lang/Appendable;I)Ljava/lang/Appendable;
+	public final fun encodeToAppendable ([BLjava/lang/Appendable;II)Ljava/lang/Appendable;
+	public static synthetic fun encodeToAppendable$default (Lcom/osmerion/kotlin/io/encoding/Base32;[BLjava/lang/Appendable;IIILjava/lang/Object;)Ljava/lang/Appendable;
+	public final fun encodeToByteArray ([B)[B
+	public final fun encodeToByteArray ([BI)[B
+	public final fun encodeToByteArray ([BII)[B
+	public static synthetic fun encodeToByteArray$default (Lcom/osmerion/kotlin/io/encoding/Base32;[BIIILjava/lang/Object;)[B
+	public final fun withPadding (Lcom/osmerion/kotlin/io/encoding/Base32$PaddingOption;)Lcom/osmerion/kotlin/io/encoding/Base32;
+}
+
+public final class com/osmerion/kotlin/io/encoding/Base32$Default : com/osmerion/kotlin/io/encoding/Base32 {
+	public final fun getExtendedHex ()Lcom/osmerion/kotlin/io/encoding/Base32;
+}
+
+public final class com/osmerion/kotlin/io/encoding/Base32$PaddingOption : java/lang/Enum {
+	public static final field ABSENT Lcom/osmerion/kotlin/io/encoding/Base32$PaddingOption;
+	public static final field ABSENT_OPTIONAL Lcom/osmerion/kotlin/io/encoding/Base32$PaddingOption;
+	public static final field PRESENT Lcom/osmerion/kotlin/io/encoding/Base32$PaddingOption;
+	public static final field PRESENT_OPTIONAL Lcom/osmerion/kotlin/io/encoding/Base32$PaddingOption;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/osmerion/kotlin/io/encoding/Base32$PaddingOption;
+	public static fun values ()[Lcom/osmerion/kotlin/io/encoding/Base32$PaddingOption;
+}
+
+public abstract interface annotation class com/osmerion/kotlin/io/encoding/ExperimentalEncodingApi : java/lang/annotation/Annotation {
+}
+
