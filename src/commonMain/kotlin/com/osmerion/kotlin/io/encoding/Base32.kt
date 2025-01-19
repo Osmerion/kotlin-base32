@@ -355,23 +355,17 @@ public open class Base32 private constructor(
                 break
             }
 
-            var b: Int = source[sourceIndex++].toInt() and 0xFF
+            var b: Int = source[sourceIndex].toInt() and 0xFF
             if ((decodeMap[b].also { b = it }) < 0) {
                 if (b == -2) { // padding byte '='
-                    if (shiftTo == 35 || shiftTo == 30 || shiftTo == 5 ||
-                        shiftTo == 25 && (sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte() || sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte() || sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte() || sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte() || sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte()) ||
-                        shiftTo == 20 && (sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte() || sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte() || sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte()) ||
-                        shiftTo == 15 && (sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte() || sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte() || sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte()) ||
-                        shiftTo == 10 && (sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte() || sourceIndex == endIndex || source[sourceIndex++] != '='.code.toByte())
-                    ) {
-                        throw IllegalArgumentException("The last unit of input does not have enough bits")
-                    }
-
+                    sourceIndex = handlePaddingSymbol(source, sourceIndex, endIndex, shiftTo)
                     hasPadding = true
                     break
                 } else {
-                    throw IllegalArgumentException("Illegal base32 character " + source[sourceIndex - 1].toString(radix = 16))
+                    throw IllegalArgumentException("Invalid symbol '${b.toChar()}'(${b.toString(radix = 8)}) at index $sourceIndex")
                 }
+            } else {
+                sourceIndex += 1
             }
 
             bits = bits or (b.toLong() shl shiftTo)
@@ -393,23 +387,31 @@ public open class Base32 private constructor(
             destination[destinationIndex++] = (bits shr 24).toByte()
             destination[destinationIndex++] = (bits shr 16).toByte()
             destination[destinationIndex++] = (bits shr 8).toByte()
+            bits = bits and 0xFF
         } else if (shiftTo == 10) {
             destination[destinationIndex++] = (bits shr 32).toByte()
             destination[destinationIndex++] = (bits shr 24).toByte()
             destination[destinationIndex++] = (bits shr 16).toByte()
+            bits = bits and 0xFFFF
         } else if (shiftTo == 15) {
             destination[destinationIndex++] = (bits shr 32).toByte()
             destination[destinationIndex++] = (bits shr 24).toByte()
+            bits = bits and 0xFFFFFF
         } else if ((shiftTo == 20) or (shiftTo == 25)) {
             destination[destinationIndex++] = (bits shr 32).toByte()
+            bits = bits and 0xFFFFFFF
         } else if (shiftTo == 30) {
-            throw IllegalArgumentException("Last unit does not have enough valid bits")
+            throw IllegalArgumentException("The last unit of input does not have enough bits")
         }
 
         if (requiresPadding && !hasPadding && paddingOption == PaddingOption.PRESENT)
             throw IllegalArgumentException("The padding option is set to PRESENT, but the input is not properly padded")
         else if (hasPadding && paddingOption == PaddingOption.ABSENT)
             throw IllegalArgumentException("The padding option is set to ABSENT, but the input is padded")
+
+        if (bits != 0L) { // the pad bits are non-zero
+            throw IllegalArgumentException("The pad bits must be zeros")
+        }
 
         if (sourceIndex < endIndex) {
             val symbol = source[sourceIndex].toInt() and 0xFF
@@ -438,6 +440,75 @@ public open class Base32 private constructor(
         }
 
         return (((symbols - paddings) * bitsPerSymbol) / bitsPerByte)
+    }
+
+    private fun handlePaddingSymbol(source: ByteArray, padIndex: Int, endIndex: Int, shiftTo: Int): Int =
+        when (shiftTo) {
+            // =
+            35 -> throw IllegalArgumentException("Redundant pad character at index $padIndex")
+            // x=, dangling single symbol
+            30 -> padIndex + 1
+            // xx=
+            25 -> {
+                checkPaddingIsAllowed(padIndex)
+
+                var index = 0
+                for (j in 1..5) {
+                    index = padIndex + j
+                    if (index == endIndex || source[index] != padSymbol) {
+                        throw IllegalArgumentException("Missing pad characters at index $index")
+                    }
+                }
+
+                index + 1
+            }
+            // xxxx=
+            20, 15 -> {
+                checkPaddingIsAllowed(padIndex)
+
+                var index = 0
+                for (j in 1..3) {
+                    index = padIndex + j
+                    if (index == endIndex || source[index] != padSymbol) {
+                        throw IllegalArgumentException("Missing pad characters at index $index")
+                    }
+                }
+
+                index + 1
+            }
+            // xxxxx=
+            10 -> {
+                checkPaddingIsAllowed(padIndex)
+
+                var index = 0
+                for (j in 1..2) {
+                    index = padIndex + j
+                    if (index == endIndex || source[index] != padSymbol) {
+                        throw IllegalArgumentException("Missing pad characters at index $index")
+                    }
+                }
+
+                index + 1
+            }
+            // xxxxxx=
+            5 -> {
+                checkPaddingIsAllowed(padIndex)
+
+                val secondPadIndex = padIndex + 1
+                if (secondPadIndex == endIndex || source[secondPadIndex] != padSymbol) {
+                    throw IllegalArgumentException("Missing pad characters at index $secondPadIndex")
+                }
+
+                secondPadIndex + 1
+            }
+            0 -> padIndex + 1
+            else -> error("Unreachable")
+        }
+
+    private fun checkPaddingIsAllowed(padIndex: Int) {
+        if (paddingOption == PaddingOption.ABSENT) {
+            throw IllegalArgumentException("The padding option is set to ABSENT, but the input has a pad character at index $padIndex")
+        }
     }
 
     /**
