@@ -39,6 +39,7 @@ publishing {
     publications.withType<MavenPublication>().configureEach {
         pom {
             name = project.name
+            description = "A tiny Kotlin Multiplatform library that provides Base32 en- and decoding functionality."
             url = "https://github.com/Osmerion/kotlin-base32"
             packaging = "jar"
 
