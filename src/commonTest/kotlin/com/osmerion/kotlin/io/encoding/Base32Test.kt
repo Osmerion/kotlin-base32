@@ -16,7 +16,6 @@
 package com.osmerion.kotlin.io.encoding
 
 import com.osmerion.kotlin.io.encoding.Base32.PaddingOption.*
-import kotlin.io.encoding.Base64
 import kotlin.test.*
 
 class Base32Test {
