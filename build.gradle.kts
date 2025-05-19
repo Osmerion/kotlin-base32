@@ -61,6 +61,12 @@ kotlin {
         }
 
         compilations {
+            configureEach {
+                compileJavaTaskProvider!!.configure {
+                    options.release = 11
+                }
+            }
+
             named("main") {
                 compileJavaTaskProvider!!.configure {
                     options.javaModuleVersion = "$version"
