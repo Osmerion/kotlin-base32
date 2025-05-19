@@ -61,7 +61,6 @@ import kotlin.math.min
  *
  * @since   0.1.0
  */
-@ExperimentalEncodingApi
 public open class Base32 private constructor(
     internal val isHexExtended: Boolean,
     internal val paddingOption: PaddingOption,
@@ -845,7 +844,6 @@ private val base32EncodeMap = byteArrayOf(
     81,  82,  83,  84,  85,  86,  87,  88,  89,  90,  50,  51,  52,  53,  54,  55   /* 16 - 31 */
 )
 
-@ExperimentalEncodingApi
 private val base32DecodeMap = IntArray(256).apply {
     this.fill(-1)
     this[Base32.padSymbol.toInt()] = -2
@@ -860,7 +858,6 @@ private val base32HexEncodeMap = byteArrayOf(
     71,  72,  73,  74,  75,  76,  77,  78,  79,  80,  81,  82,  83,  84,  85,  86   /* 16 - 31 */
 )
 
-@ExperimentalEncodingApi
 private val base32HexDecodeMap = IntArray(256).apply {
     this.fill(-1)
     this[Base32.padSymbol.toInt()] = -2
@@ -869,21 +866,18 @@ private val base32HexDecodeMap = IntArray(256).apply {
     }
 }
 
-@ExperimentalEncodingApi
 internal expect fun Base32.platformCharsToBytes(
     source: CharSequence,
     startIndex: Int,
     endIndex: Int,
 ): ByteArray
 
-@ExperimentalEncodingApi
 internal expect fun Base32.platformEncodeToString(
     source: ByteArray,
     startIndex: Int,
     endIndex: Int,
 ): String
 
-@ExperimentalEncodingApi
 internal expect fun Base32.platformEncodeIntoByteArray(
     source: ByteArray,
     destination: ByteArray,
@@ -892,7 +886,6 @@ internal expect fun Base32.platformEncodeIntoByteArray(
     endIndex: Int,
 ): Int
 
-@ExperimentalEncodingApi
 internal expect fun Base32.platformEncodeToByteArray(
     source: ByteArray,
     startIndex: Int,

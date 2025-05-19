@@ -16,11 +16,9 @@
 package samples.io.encoding
 
 import com.osmerion.kotlin.io.encoding.Base32
-import com.osmerion.kotlin.io.encoding.ExperimentalEncodingApi
 import samples.*
 import kotlin.test.*
 
-@OptIn(ExperimentalEncodingApi::class, ExperimentalStdlibApi::class)
 class Base32Samples {
 
     @Sample

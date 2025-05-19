@@ -19,7 +19,6 @@ import com.osmerion.kotlin.io.encoding.Base32.PaddingOption.*
 import kotlin.io.encoding.Base64
 import kotlin.test.*
 
-@OptIn(ExperimentalEncodingApi::class)
 class Base32Test {
 
     private fun Base32.PaddingOption.isPresentOnEncode(): Boolean =

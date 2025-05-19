@@ -53,6 +53,3 @@ public final class com/osmerion/kotlin/io/encoding/Base32$PaddingOption : java/l
 	public static fun values ()[Lcom/osmerion/kotlin/io/encoding/Base32$PaddingOption;
 }
 
-public abstract interface annotation class com/osmerion/kotlin/io/encoding/ExperimentalEncodingApi : java/lang/annotation/Annotation {
-}
-

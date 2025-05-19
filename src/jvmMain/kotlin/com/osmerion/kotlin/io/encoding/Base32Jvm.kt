@@ -15,7 +15,6 @@
  */
 package com.osmerion.kotlin.io.encoding
 
-@ExperimentalEncodingApi
 internal actual fun Base32.platformCharsToBytes(
     source: CharSequence,
     startIndex: Int,
@@ -31,13 +30,11 @@ internal actual fun Base32.platformCharsToBytes(
 }
 
 @Suppress("NOTHING_TO_INLINE")
-@ExperimentalEncodingApi
 internal actual inline fun Base32.platformEncodeToString(source: ByteArray, startIndex: Int, endIndex: Int): String {
     val byteResult = encodeToByteArrayImpl(source, startIndex, endIndex)
     return String(byteResult, Charsets.ISO_8859_1)
 }
 
-@ExperimentalEncodingApi
 internal actual fun Base32.platformEncodeIntoByteArray(
     source: ByteArray,
     destination: ByteArray,
@@ -47,7 +44,6 @@ internal actual fun Base32.platformEncodeIntoByteArray(
 ): Int =
     encodeIntoByteArrayImpl(source, destination, destinationOffset, startIndex, endIndex)
 
-@ExperimentalEncodingApi
 internal actual fun Base32.platformEncodeToByteArray(
     source: ByteArray,
     startIndex: Int,
