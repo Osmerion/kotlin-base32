@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@SuppressWarnings("JavaModuleNaming")
+@SuppressWarnings({ "JavaModuleNaming", "module" })
 module com.osmerion.kotlin.base32 {
 
     requires transitive kotlin.stdlib;
