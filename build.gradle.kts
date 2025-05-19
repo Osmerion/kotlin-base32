@@ -55,11 +55,30 @@ kotlin {
     }
 
     jvm {
-        withJava()
-
         compilerOptions {
             jvmTarget = JvmTarget.JVM_11
             freeCompilerArgs.add("-Xjdk-release=11")
+        }
+
+        compilations {
+            named("main") {
+                compileJavaTaskProvider!!.configure {
+                    options.javaModuleVersion = "$version"
+
+                    options.compilerArgumentProviders += object : CommandLineArgumentProvider {
+
+                        @InputFiles
+                        @PathSensitive(PathSensitivity.RELATIVE)
+                        val kotlinClasses = project.tasks.named<KotlinCompile>("compileKotlinJvm").flatMap(KotlinCompile::destinationDirectory)
+
+                        override fun asArguments() = listOf(
+                            "--patch-module",
+                            "com.osmerion.kotlin.base32=${kotlinClasses.get().asFile.absolutePath}"
+                        )
+
+                    }
+                }
+            }
         }
     }
 
@@ -177,26 +196,6 @@ dokka {
 }
 
 tasks {
-    withType<JavaCompile>().configureEach {
-        options.javaModuleVersion = "$version"
-        options.release = 11
-    }
-
-    named<JavaCompile>("compileJava") {
-        options.compilerArgumentProviders += object : CommandLineArgumentProvider {
-
-            @InputFiles
-            @PathSensitive(PathSensitivity.RELATIVE)
-            val kotlinClasses = this@tasks.named<KotlinCompile>("compileKotlinJvm").flatMap(KotlinCompile::destinationDirectory)
-
-            override fun asArguments() = listOf(
-                "--patch-module",
-                "com.osmerion.kotlin.base32=${kotlinClasses.get().asFile.absolutePath}"
-            )
-
-        }
-    }
-
     withType<Jar>().configureEach {
         isPreserveFileTimestamps = false
         isReproducibleFileOrder = true
