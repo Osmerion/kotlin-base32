@@ -1,7 +1,7 @@
 [versions]
 binary-compatibility-validator = "0.17.0"
 dokka = "2.0.0"
-kotlin = "2.1.21"
+kotlin = "2.2.0"
 
 
 [plugins]
