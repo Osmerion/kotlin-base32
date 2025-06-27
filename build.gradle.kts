@@ -193,6 +193,10 @@ dokka {
         commonMain {
             samples.from(files("src/commonTest/kotlin"))
         }
+
+        named("jvmMain") {
+            samples.from(files("src/jvmTest/kotlin"))
+        }
     }
 
     dokkaPublications.configureEach {
