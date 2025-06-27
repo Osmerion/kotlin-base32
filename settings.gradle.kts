@@ -28,7 +28,8 @@ plugins {
 rootProject.name = "kotlin-base32"
 
 dependencyResolutionManagement {
-    repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
+    // https://youtrack.jetbrains.com/issue/KT-68533
+//    repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
 
     repositories {
         mavenCentral()
