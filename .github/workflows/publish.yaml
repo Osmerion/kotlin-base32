@@ -157,5 +157,5 @@ jobs:
         with:
           username: ${{ secrets.CENTRAL_PORTAL_USERNAME }}
           password: ${{ secrets.CENTRAL_PORTAL_PASSWORD }}
-          bundle: ./maven-artifact-bundle.tgz
+          bundle: ./artifact-bundle.tar.gz
           publishing-type: "USER_MANAGED"
