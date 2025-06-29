@@ -153,4 +153,4 @@ jobs:
           username: ${{ secrets.CENTRAL_PORTAL_USERNAME }}
           password: ${{ secrets.CENTRAL_PORTAL_PASSWORD }}
           bundle: ./artifact-bundle.tar.gz
-          publishing-type: "user-managed"
+          publishing-type: "USER_MANAGED"
