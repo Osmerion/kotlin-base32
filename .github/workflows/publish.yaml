@@ -96,6 +96,9 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build Artifact Bundle
+        env:
+          ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
+          ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
         run: ./gradlew --init-script ./.github/init.gradle.kts artifactBundle --info -S --show-version
 
       - name: Upload Artifact Bundle
