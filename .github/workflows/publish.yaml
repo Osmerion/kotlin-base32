@@ -143,7 +143,7 @@ jobs:
 
   central-upload:
     name: Upload to Central Portal
-    needs: merge-artifact-bundles
+    needs: [build-docs, merge-artifact-bundles]
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifact Bundle
