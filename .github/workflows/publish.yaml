@@ -150,12 +150,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: "artifact-bundle"
-          path: ./artifact-bundle.tar.gz
+          path: .
 
       - name: Upload to Central Portal
         uses: TheMrMilchmann/central-portal-actions/upload-deployment@v0
         with:
           username: ${{ secrets.CENTRAL_PORTAL_USERNAME }}
           password: ${{ secrets.CENTRAL_PORTAL_PASSWORD }}
-          bundle: ./artifact-bundle.tar.gz
+          bundle: ./maven-artifact-bundle.tgz
           publishing-type: "USER_MANAGED"
