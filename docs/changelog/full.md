@@ -1,12 +1,14 @@
-### 0.1.0
+### 1.0.0
 
-_Released 2025 Jan 19_
+_Released 2025 Jun 29_
 
-#### Overview
+#### Improvements
 
-A tiny Kotlin Multiplatform library that provides Base32 en- and decoding
-functionality.
+- Added extensions for working with Java streams.
+    - The `decodingWith` and `encodingWith` functions are now available on `InputStream` and `OutputStream` and mirror
+      the standard library's API for Base64.
+- The `Base32` API is now stable and no longer marked as experimental.
 
-This library was developed with the intention to eventually upstream the
-functionality into the Standard Library. As such, the API, KDoc, samples, and
-tests all closely resemble their `kotlin.io.encoding.Base64` counterparts.
+#### Breaking Changes
+
+- The library now requires Kotlin 2.2 (up from 2.1).
