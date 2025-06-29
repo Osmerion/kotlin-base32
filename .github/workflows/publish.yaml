@@ -105,7 +105,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }}-${{ env.WORKSPACE_ARTIFACT }}
-          path: "artifact-bundle-${{ matrix.os }}.tar.gz"
+          path: "./build/libs/maven-artifact-bundle.tgz"
           retention-days: 1
 
 
