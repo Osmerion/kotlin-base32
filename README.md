@@ -12,6 +12,14 @@ This library was developed with the intention to eventually upstream the
 functionality into the Standard Library. As such, the API, KDoc, samples, and
 tests all closely resemble their `kotlin.io.encoding.Base64` counterparts.
 
+```kotlin
+val encoded = Base32.Default.encode("Hello, World!".encodeToByteArray())
+assertPrints(encoded, "JBSWY3DPFQQFO33SNRSCC===")
+
+val decoded = Base32.Default.decode(encoded)
+assertPrints(decoded.decodeToString(), "Hello, World!")
+```
+
 
 ## Building from source
 
