@@ -78,6 +78,7 @@ jobs:
 
   build-artifact-bundles:
     name: Build Artifact Bundles
+    needs: check
     strategy:
         matrix:
           os: [ macos-latest, ubuntu-latest ]
@@ -111,6 +112,7 @@ jobs:
 
   merge-artifact-bundles:
     name: Merge Bundles
+    needs: build-artifact-bundles
     runs-on: ubuntu-latest
     steps:
       - name: Download Linux Artifact Bundle
