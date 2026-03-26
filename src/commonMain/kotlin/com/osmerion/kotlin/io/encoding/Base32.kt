@@ -95,7 +95,7 @@ public open class Base32 private constructor(
          * When decoding, correctly padded input is required. The padding character `'='` marks the end of the encoded
          * data, and subsequent symbols are prohibited.
          *
-         * This represents the canonical form of Base64 encoding.
+         * This represents the canonical form of Base32 encoding.
          *
          * @sample  samples.io.encoding.Base32Samples.paddingOptionPresentSample
          *
@@ -173,7 +173,7 @@ public open class Base32 private constructor(
      * @throws IndexOutOfBoundsException    when [startIndex] or [endIndex] is out of range of [source] array indices.
      * @throws IllegalArgumentException     when `startIndex > endIndex`.
      * @throws IllegalArgumentException     when the symbols for decoding are not padded as required by the
-     *                                      [PaddingOption] set for this [Base64] instance, or when there are extra
+     *                                      [PaddingOption] set for this [Base32] instance, or when there are extra
      *                                      symbols after the padding.
      *
      * @return  a [ByteArray] with the resulting bytes.
@@ -799,7 +799,7 @@ public open class Base32 private constructor(
      * Use the [withPadding] function to create a new instance with a different padding option if necessary.
      *
      * Encode operation does not add any line separator character.
-     * Decode operation throws if it encounters a character outside the base64 alphabet.
+     * Decode operation throws if it encounters a character outside the base32 alphabet.
      *
      * @sample  samples.io.encoding.Base32Samples.defaultEncodingSample
      *
@@ -819,14 +819,11 @@ public open class Base32 private constructor(
          * The "base32hex" encoding specified by [`RFC 4648 section 7`](https://www.rfc-editor.org/rfc/rfc4648#section-7),
          * Base 32 Encoding with Hex Alphabet.
          *
-         * Uses "The URL and Filename safe Base 64 Alphabet" as specified in Table 2 of RFC 4648 for encoding and decoding,
-         * consisting of `'A'..'Z'`, `'a'..'z'`, `'-'` and `'_'` characters.
-         *
          * This instance is configured with the padding option set to [PaddingOption.PRESENT].
          * Use the [withPadding] function to create a new instance with a different padding option if necessary.
          *
          * Encode operation does not add any line separator character.
-         * Decode operation throws if it encounters a character outside the base64url alphabet.
+         * Decode operation throws if it encounters a character outside the base32hex alphabet.
          *
          * @sample  samples.io.encoding.Base32Samples.hexEncodingSample
          *
