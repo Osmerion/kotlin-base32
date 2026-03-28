@@ -1,3 +1,14 @@
+### 1.0.1
+
+_Released 2026 Mar 28_
+
+### Fixes
+
+- Various documentation improvements and corrections.
+
+
+---
+
 ### 1.0.0
 
 _Released 2025 Jun 29_
