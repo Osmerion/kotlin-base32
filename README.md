@@ -54,7 +54,7 @@ Additionally `tasks` may be used to print a list of all available tasks.
 ## License
 
 ```
-Copyright 2024-2025 Leon Linhart
+Copyright 2024-2026 Leon Linhart
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
