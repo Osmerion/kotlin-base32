@@ -2,6 +2,6 @@
 
 _Released 2026 Mar 28_
 
-### Fixes
+#### Fixes
 
 - Various documentation improvements and corrections.
